@@ -30,6 +30,7 @@ if (strtolower($verVendedores) === "si") {
         echo "Nombre: " . $vendedor['nombre'] . " " . $vendedor['apellido'] . "\n";
         echo "Correo: " . $vendedor['correo_electronico'] . "\n";
         echo "Teléfono: " . $vendedor['telefono'] . "\n";
+        echo "Contrasenia: " . $vendedor['contrasena'] . "\n";
         echo "----------------------\n";
 
     }
