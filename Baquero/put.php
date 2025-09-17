@@ -3,11 +3,14 @@ $respuesta = readline("¿Estás registrado? (si/no): ");
 
 if ($respuesta == "si") {
     echo "Tienes permisos para ver esta informacion.\n";
-} else {
+
+} 
+
+else {
     die("No tienes permiso para ver la informacion\n");
 }
 
-$opcion = readline("¿Que deseas ver? (1 = clientes, 2 = productos): ");
+$opcion = readline("Desea ver los clientes? (1=si/2=no): ");
 
 
 if ($opcion == "1") {
@@ -37,16 +40,17 @@ foreach($cliente as $cliente){
     
 }
 
-$agregar= readline("¿quieres agregar un cliente? (si/no):");
-if($agregar ==="si"){
 
- $nombre= readline("nombre:") ;
+}$agregar= readline("¿quieres editar un cliente? (si/no):");
+if($agregar ==="si"){
+    $id_cliente= readline("id del cliente a editar:") ;
+$urlEditar = $url . '/' . $id_cliente;
+$nombre= readline("nombre:") ;
  $apellido = readline("apellido:") ;
  $contrasena = readline("contrasena:") ;
  $direccion = readline("direccion:") ;
  $telefono = readline("telefono:") ;
- $correo_electronico = readline("correo:") ;
-
+ $correo_electronico = readline("correo:") ;        
 $Datos= array(
     
   "nombre" => $nombre,
@@ -55,64 +59,24 @@ $Datos= array(
     "direccion" => $direccion,
     "telefono" => $telefono,
     "correo_electronico" => $correo_electronico
-    
 );
-
 $data_json= json_encode($Datos);
-
-$proceso= curl_init($url);
-
-
-
-curl_setopt($proceso, CURLOPT_CUSTOMREQUEST,"POST");
+$proceso = curl_init($urlEditar);
+curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "PUT");
 curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
-curl_setopt($proceso, CURLOPT_RETURNTRANSFER,true);
+curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($proceso, CURLOPT_HTTPHEADER, array(
-"Content-Type: application/json",
-"Content-Length: " . strlen($data_json)));
-
-
-$rtapeticion= curl_exec($proceso);
-
-$http_code= curl_getinfo($proceso, CURLINFO_HTTP_CODE);
-
-if (curl_errno($proceso)){
-    die("error en la peticion POST".curl_error($proceso)."\n");
-}
+    'Content-Type: application/json',
+));
+$response = curl_exec($proceso);
+$http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
 curl_close($proceso);
 
-if($http_code===200){
-    echo("se agrego el cliente #respuesta (200)". "\n");
-} else{
-    echo("fatal error $http_code");
-}
+if ($http_code === 200) {
+    echo "Cliente editado con éxito.\n";
+} else {
+    echo "Error al editar el cliente. Código HTTP: $http_code\n";
 
 }
-
-
-
-
 }
-elseif ($opcion == "2") {
-    $url="http://localhost:8080/producto";
-
-$consumo=file_get_contents($url);
-
-if ($consumo === FALSE) {
-    die("Error al consumir el servicio en $url");
-}
-
-
-$producto=json_decode($consumo);
-
-foreach($producto as $producto){
-    echo $producto->nombre. "\n";
-    echo $producto->descripcion. "\n";
-    echo $producto->cantidad. "\n";
-    echo $producto->estado. "\n";
-    echo "---------------------------\n";
-}
-}
-
-
 ?>
