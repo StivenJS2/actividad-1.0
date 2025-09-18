@@ -42,6 +42,9 @@ $RTA = readline ("Eres vendedor? (S/N): \n");
 
             }while ($n1 == 'S' || $n1 == 's');
 
+            echo "Hasta luego.\n";
+            exit();
+
         }
 
 ?>
