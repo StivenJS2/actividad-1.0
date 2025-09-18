@@ -1,4 +1,6 @@
 <?php
+include 'confi/confi.php';
+
 $respuesta = readline("¿Estás registrado? (si/no): ");
 
 if ($respuesta == "si") {
@@ -12,7 +14,6 @@ $opcion = readline("¿Que deseas ver? (1 = clientes, 2 = productos): ");
 
 if ($opcion == "1") {
 
-$url="http://localhost:8080/cliente";
 
 
 
@@ -94,8 +95,7 @@ if($http_code===200){
 
 }
 elseif ($opcion == "2") {
-    $url="http://localhost:8080/producto";
-
+   
 $consumo=file_get_contents($url);
 
 if ($consumo === FALSE) {
