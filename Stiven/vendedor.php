@@ -1,80 +1,47 @@
 <?php
-$urlVendedor = "http://localhost:8080/vendedor";
-$urlCarrito  = "http://localhost:8080/carrito";
 
-$respuesta = readline("¿Eres vendedor? (si/no): ");
+require_once "CRUD_Vendedor.php";
 
-if (strtolower($respuesta) == "no") {
-    die("No eres vendedor. No puedes acceder\n");
-}
+$RTA = readline ("Eres vendedor? (S/N): \n");
 
-$verVendedores = readline("¿Quieres ver los datos de los vendedores? (si/no): ");
-
-if (strtolower($verVendedores) === "si") {
-
-    $consumovendedor = file_get_contents($urlVendedor);
-
-    if ($consumovendedor === false) {
-
-        die("Error al consumir el servicio de vendedores en $urlVendedor\n");
-
+    if ($RTA == 'N' || $RTA == 'n'){
+        echo "No puedes acceder a esta sección\n";
+        exit();
     }
 
-    $vendedores = json_decode($consumovendedor, true);
-
-    echo "\n__Datos de vendedores__\n";
-
-    foreach ($vendedores as $vendedor){
-
-        echo "ID: " . $vendedor['id_vendedor'] . "\n";
-        echo "Nombre: " . $vendedor['nombre'] . " " . $vendedor['apellido'] . "\n";
-        echo "Correo: " . $vendedor['correo_electronico'] . "\n";
-        echo "Teléfono: " . $vendedor['telefono'] . "\n";
-        echo "Contrasenia: " . $vendedor['contrasena'] . "\n";
-        echo "----------------------\n";
-
-    }
-}
-
-
-else {
-
-    echo "Ok, no se mostrarán los datos del vendedor.\n";
-
-}
-
-$verCarrito = readline("¿Quieres ver los carritos de los clientes? (si/no): ");
-
-if (strtolower($verCarrito) === "si") {
-
-    $consumoCarrito = file_get_contents($urlCarrito);
-
-    if ($consumoCarrito === false) {
-        die("Error al consumir el servicio de carritos en $urlCarrito\n");
-
+    if ($RTA != 'S' && $RTA != 's' && $RTA != 'N' && $RTA != 'n'){
+        echo "Respuesta no válida\n";
+        exit();
     }
 
-    $carritos = json_decode($consumoCarrito, true);
+        if ($RTA == 'S' || $RTA == 's'){
+            
+            do{
+            
+                echo "Bienvenido\n";
+                echo "-------------------------------------\n";
+                echo "¿Qué deseas hacer?\n";
 
-    echo "\n__Carritos de clientes__\n";
+                echo "1. Ver vendedores\n";
+                echo "2. Crear vendedor\n";
+                echo "3. Actualizar vendedor\n";
+                echo "4. Eliminar vendedor\n";
 
-    foreach ($carritos as $carrito){
+                $respuesta = readline("Elige opción: ");
 
-        echo "ID Carrito: " . $carrito['id_carrito'] . "\n";
-        echo "ID Cliente: " . $carrito['id_cliente'] . "\n";
-        echo "ID Detalle Producto: " . $carrito['id_detalle_producto'] . "\n";
-        echo "Cantidad: " . $carrito['cantidad'] . "\n";
-        echo "Precio Unitario: " . $carrito['precio_unitario'] . "\n";
-        echo "Subtotal: " . $carrito['subtotal'] . "\n";
-        echo "----------------------\n";
+                switch($respuesta){
 
-    }
-} 
+                    case 1: obtenerVendedores(); break;
+                    case 2: crearVendedor(); break;
+                    case 3: actualizarVendedor(); break;
+                    case 4: eliminarVendedor(); break;
+                    default: echo "Opción no válida\n"; break;
+                }
 
-else {
+                $n1 = readline("¿Deseas realizar otra acción? (S/N): ");
 
-    echo "Vale, no se mostraran los carritos. Fin del programa\n";
-    
-}
+            }while ($n1 == 'S' || $n1 == 's');
+
+        }
+
 ?>
-
