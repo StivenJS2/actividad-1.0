@@ -7,8 +7,7 @@ if ($opcion == "1") {
 
     $respuesta = readline("¿Desea agregar una categoria :D? (si/no): ");
 
-    if(strtolower($respuesta) === "si")
-        {
+    if(strtolower($respuesta) === "si"){
         $nombre = readline("Ingrese el nombre de la categoria: ");
 
         $datos = array(
