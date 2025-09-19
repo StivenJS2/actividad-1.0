@@ -1,6 +1,6 @@
 <?php
 
-$urlVendedor = "http://localhost:8080/vendedor";
+include 'confi/confi.php';
 
 // GET
 function obtenerVendedores() {
