@@ -7,7 +7,7 @@ $urlVendedor ="http://localhost:8080/vendedor";
 $urlCliente ="http://localhost:8080/cliente";
 
 //William
-$url="http://localhost:8080/producto";
+$urlPedido="http://localhost:8080/pedido";
 
 
 ?>
