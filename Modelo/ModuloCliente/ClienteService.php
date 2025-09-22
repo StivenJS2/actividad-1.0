@@ -1,63 +1,16 @@
 <?php
-include 'confi/confi.php';
+class ClienteService {
+    private $urlCliente;
 
-$respuesta = readline("¿Estás registrado? (si/no): ");
-
-if ($respuesta == "si") {
-    echo "Tienes permisos para ver esta informacion.\n";
-} else {
-    die("No tienes permiso para ver la informacion\n");
-}
-
-while (true) {
-    echo "\n===== MENÚ CLIENTES =====\n";
-    echo "1. Ver clientes\n";
-    echo "2. Agregar cliente\n";
-    echo "3. Editar cliente\n";
-    echo "4. Eliminar cliente\n";
-    echo "5. Salir\n";
-
-    $opcion = readline("Seleccione una opción: ");
-
-    if ($opcion == "1") {
-        verClientes($urlCliente);
-    } elseif ($opcion == "2") {
-        agregarCliente($urlCliente);
-    } elseif ($opcion == "3") {
-        editarCliente($urlCliente);
-    } elseif ($opcion == "4") {
-        eliminarCliente($urlCliente);
-    } elseif ($opcion == "5") {
-        echo "Programa finalizado.\n";
-        break;
-    } else {
-        echo "Opción no válida.\n";
+public function obtenerClientes() {
+        $respuesta=@file_get_contents($this->urlCliente);
+        if ($respuesta === FALSE) return false;
+        return json_decode($respuesta, true);
+      
     }
-}
 
-
-function verClientes($urlCliente) {
-    $consumo = file_get_contents($urlCliente);
-    if ($consumo === FALSE) {
-        die("Error al consumir el servicio en $urlCliente\n");
-    }
-   $clientes = json_decode($consumo);
-
-foreach ($clientes as $cliente) {
-    echo "ID: " . $cliente->id_cliente . "\n";
-    echo "Nombre: " . $cliente->nombre . "\n";
-    echo "Apellido: " . $cliente->apellido . "\n";
-    echo "Contraseña: " . $cliente->contrasena . "\n";
-    echo "Dirección: " . $cliente->direccion . "\n";
-    echo "Teléfono: " . $cliente->telefono . "\n";
-    echo "Correo: " . $cliente->correo_electronico . "\n";
-    echo "---------------------------\n";
-}
-
-}
-
-
-function agregarCliente($urlCliente) {
+    
+public function agregarCliente($urlCliente) {
     $datos = [
         "nombre" => readline("Nombre: "),
         "apellido" => readline("Apellido: "),
@@ -96,7 +49,7 @@ $data_json = json_encode($datos);
 }
 
 
-function editarCliente($urlCliente) {
+public function editarCliente($urlCliente) {
     $id = readline("ID del cliente para editar: ");
     $urlEditar = $urlCliente . "/" . $id;
 
@@ -137,7 +90,7 @@ if (curl_errno($proceso)){
     }
 }
 
-function eliminarCliente($urlCliente) {
+public function eliminarCliente($urlCliente) {
     $id = readline("ID del cliente a eliminar: ");
     $urlEliminar = $urlCliente . "/" . $id;
 
@@ -162,6 +115,7 @@ if (curl_errno($proceso)){
     } else {
         echo "Error al eliminar cliente. Código HTTP: $http_code\n";
     }
+}
 }
 
 ?>
