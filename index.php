@@ -1,5 +1,4 @@
 <?php
-// Detectar qué controlador se debe usar
 $opcion = $_GET['opcion'] ?? '';
 
 if ($opcion === 'cliente') {
