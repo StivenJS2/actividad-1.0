@@ -4,7 +4,11 @@ require_once __DIR__ . "/../Modelo/ModuloCliente/ClienteService.php";
 
 class ClienteController {
     private $clienteService;
-  
+   
+    public function __construct() {
+    
+        $this->clienteService = new ClienteService();
+    }
    
     public function manejarPeticion() {
         $mensaje ="";
@@ -35,7 +39,7 @@ class ClienteController {
             }
         }
 
-       
+
         $clientes = $this->clienteService->obtenerClientes();
 
         require __DIR__."/../Vista/index.php";

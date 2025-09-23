@@ -9,12 +9,12 @@
 
     <?= $mensaje ?? '' ?>
 
-    <?php if (is_array($cliente) ): ?>
+    <?php if (is_array($clientes)): ?>
         <ul>
-            <?php foreach ($cliente as $client): ?>
+            <?php foreach ($clientes as $clientes): ?>
                 <li>
-                    <?= htmlspecialchars($client['nombre']) . " " . htmlspecialchars($client['apellido']) ?>
-                    - <?= htmlspecialchars($client['correo_electronico']) ?>
+                    <?= htmlspecialchars($clientes['nombre']) . " " . htmlspecialchars($clientes['apellido']) ?>
+                    - <?= htmlspecialchars($clientes['correo_electronico']) ?>
                 </li>
             <?php endforeach; ?>
         </ul>
