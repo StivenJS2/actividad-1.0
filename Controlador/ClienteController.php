@@ -5,11 +5,7 @@ require_once __DIR__ . "/../Modelo/ModuloCliente/ClienteService.php";
 class ClienteController {
     private $clienteService;
   
-    // 🔹 Constructor para inicializar el servicio
-    public function __construct() {
-        $this->clienteService = new ClienteService();
-    }
-
+   
     public function manejarPeticion() {
         $mensaje ="";
 
