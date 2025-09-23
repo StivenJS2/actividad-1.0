@@ -2,10 +2,6 @@
 class ClienteService {
     private $urlCliente;
 
-    public function __construct($urlCliente) {
-        $this->urlCliente = $urlCliente;
-    }
-
     public function obtenerClientes() {
         $respuesta = @file_get_contents($this->urlCliente);
         if ($respuesta === FALSE) return [];
