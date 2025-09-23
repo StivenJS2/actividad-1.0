@@ -2,120 +2,50 @@
 class ClienteService {
     private $urlCliente;
 
-public function obtenerClientes() {
-        $respuesta=@file_get_contents($this->urlCliente);
-        if ($respuesta === FALSE) return false;
+    public function __construct($urlCliente) {
+        $this->urlCliente = $urlCliente;
+    }
+
+    public function obtenerClientes() {
+        $respuesta = @file_get_contents($this->urlCliente);
+        if ($respuesta === FALSE) return [];
         return json_decode($respuesta, true);
-      
     }
 
-    
-public function agregarCliente($urlCliente) {
-    $datos = [
-        "nombre" => readline("Nombre: "),
-        "apellido" => readline("Apellido: "),
-        "contrasena" => readline("Contraseña: "),
-        "direccion" => readline("Dirección: "),
-        "telefono" => readline("Teléfono: "),
-        "correo_electronico" => readline("Correo: ")
-    ];
+    public function agregarCliente($nombre, $apellido, $contrasena, $direccion, $telefono, $correo_electronico) {
+        $datos = [
+            "nombre" => $nombre,
+            "apellido" => $apellido,
+            "contrasena" => $contrasena,
+            "direccion" => $direccion,
+            "telefono" => $telefono,
+            "correo_electronico" => $correo_electronico
+        ];
 
+        $data_json = json_encode($datos);
+        $proceso = curl_init($this->urlCliente);
+        curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
+        curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($proceso, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json",
+            "Content-Length: " . strlen($data_json)
+        ]);
 
-$data_json = json_encode($datos);
-    $proceso = curl_init($urlCliente);
-    curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
-    curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($proceso, CURLOPT_HTTPHEADER, [
-        "Content-Type: application/json",
-        "Content-Length: " . strlen($data_json)
-    ]);
-    
-    $rtapeticion = curl_exec($proceso);
+        $respuesta = curl_exec($proceso);
+        $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
 
-    $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
+        if (curl_errno($proceso)) {
+            return ["success" => false, "error" => curl_error($proceso)];
+        }
 
-    if (curl_errno($proceso)){
-    die("error en la peticion POST".curl_error($proceso)."\n");
-}
+        curl_close($proceso);
 
-    curl_close($proceso);
-
-    if ($http_code === 200) {
-        echo "Cliente agregado con éxito.\n";
-    } else {
-        echo "Error al agregar cliente. Código HTTP: $http_code\n";
+        if ($http_code === 200 || $http_code === 201) {
+            return ["success" => true, "data" => json_decode($respuesta, true)];
+        } else {
+            return ["success" => false, "error" => "HTTP $http_code"];
+        }
     }
 }
-
-
-public function editarCliente($urlCliente) {
-    $id = readline("ID del cliente para editar: ");
-    $urlEditar = $urlCliente . "/" . $id;
-
-    $datos = [
-        "nombre" => readline("Nombre: "),
-        "apellido" => readline("Apellido: "),
-        "contrasena" => readline("Contraseña: "),
-        "direccion" => readline("Dirección: "),
-        "telefono" => readline("Teléfono: "),
-        "correo_electronico" => readline("Correo: ")
-    ];
-
-
-$data_json = json_encode($datos);
-    $proceso = curl_init($urlEditar);
-    curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "PUT");
-    curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
-    curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($proceso, CURLOPT_HTTPHEADER,
-     ["Content-Type: application/json",
-     "Content-Length: " . strlen($data_json)]);
-
-
-    $rtapeticion = curl_exec($proceso);
-
-    $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
-
-if (curl_errno($proceso)){
-    die("error en la peticion PUT".curl_error($proceso)."\n");
-}
-
-    curl_close($proceso);
-
-    if ($http_code === 200) {
-        echo "Cliente editado con éxito.\n";
-    } else {
-        echo "Error al editar cliente. Código HTTP: $http_code\n";
-    }
-}
-
-public function eliminarCliente($urlCliente) {
-    $id = readline("ID del cliente a eliminar: ");
-    $urlEliminar = $urlCliente . "/" . $id;
-
-    $proceso = curl_init($urlEliminar);
-    curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "DELETE");
-    curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($proceso, CURLOPT_HTTPHEADER,
-     ["Content-Type: application/json"]);
-
-    $rtapeticion = curl_exec($proceso);
-
-    $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
-
-if (curl_errno($proceso)){
-    die("error en la peticion DELETE".curl_error($proceso)."\n");
-}
-
-    curl_close($proceso);
-
-    if ($http_code === 200) {
-        echo "Cliente eliminado con éxito.\n";
-    } else {
-        echo "Error al eliminar cliente. Código HTTP: $http_code\n";
-    }
-}
-}
-
 ?>
