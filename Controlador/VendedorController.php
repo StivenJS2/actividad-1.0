@@ -1,19 +1,15 @@
 <?php
+require_once __DIR__ . "/../Modelo/ModuloVendedor/VendedorService.php";
 
-require_once __DIR__ . "/../Modelo/ModuloCliente/ClienteService.php";
+class VendedorController {
+    private $vendedorService;
 
-
-class ClienteController {
-    private $clienteService;
-   
     public function __construct() {
-    
-        $this->clienteService = new ClienteService();
+        $this->vendedorService = new VendedorService();
     }
-   
-    public function manejarPeticion() {
-        $mensaje ="";
 
+    public function manejarPeticion() {
+        $mensaje ="";    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombre = trim($_POST['nombre'] ?? '');
             $apellido = trim($_POST['apellido'] ?? '');
@@ -26,24 +22,25 @@ class ClienteController {
                 !empty($direccion) && !empty($telefono) && !empty($correo_electronico)) {
 
              
-                $resultado = $this->clienteService->agregarCliente(
+                $resultado = $this->vendedorService->agregarVendedor(
                     $nombre, $apellido, $contrasena, $direccion, $telefono, $correo_electronico
                 );
 
                 if ($resultado["success"]) {
-                    $mensaje="<p style='color:green;'>Cliente agregado correctamente</p>";
+                    $mensaje="<p style='color:green;'>Vendedor agregado correctamente</p>";
                 } else {
-                    $mensaje="<p style='color:red;'>Error al agregar cliente: " .$resultado["error"]."</p>";
+                    $mensaje="<p style='color:red;'>Error al agregar vendedor: " .$resultado["error"]."</p>";
                 }
             } else {
                 $mensaje="<p style='color:red;'>Todos los campos son obligatorios.</p>";
             }
         }
 
-        $clientes = $this->clienteService->obtenerClientes();
+        $vendedores = $this->vendedorService->obtenerVendedores();
+        require __DIR__."/../Vista/Vendedor.php";
 
-        require __DIR__ . "/../Vista/Cliente.php";
     }
-   
 }
+
+
 ?>
