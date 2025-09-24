@@ -13,9 +13,17 @@ elseif ($opcion === 'vendedor') {
     $controller->manejarPeticion();
 } 
 
+elseif  ($opcion === 'pedido') {
+    require_once __DIR__ . '/Controlador/PedidoController.php';
+    $controller = new PedidoController();
+    $controller->manejarPeticion();
+}
+
 else {
     echo "<h2>Bienvenido</h2>";
     echo "<p>Selecciona una opción:</p>";
     echo "<a href='?opcion=cliente'>Ir a Cliente</a><br>";
-    echo "<a href='?opcion=vendedor'>Ir a Vendedor</a>";
+    echo "<a href='?opcion=vendedor'>Ir a Vendedor</a><br>";
+    echo "<a href='?opcion=pedido'>Ir a Pedido</a>";
 }
+
