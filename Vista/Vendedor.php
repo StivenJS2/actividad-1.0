@@ -2,51 +2,83 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de vendedores</title>
+    <title>Vendedores</title>
 </head>
 <body>
-
     <h1>Lista de Vendedores</h1>
 
-    <?= $mensaje ?? '' ?>
+    <p style="color:blue;"><?= $mensaje ?></p>
 
     <?php if (is_array($vendedores)): ?>
         <ul>
-            <?php foreach ($vendedores as $vendedor): ?>
-                <li>
-                    <?= htmlspecialchars($vendedor['nombre']) . " " . htmlspecialchars($vendedor['apellido']) ?>
-                    - <?= htmlspecialchars($vendedor['correo_electronico']) ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+    <?php foreach ($vendedores as $vendedor): ?>
+        <li>
+            <?= $vendedor["id_vendedor"] . " - " . $vendedor["nombre"] . " - " . $vendedor["correo_electronico"] ?>
+        </li>
+    <?php endforeach; ?>
+</ul>
     <?php else: ?>
         <p style="color:red;">No se encontraron vendedores.</p>
     <?php endif; ?>
 
     <h2>Agregar nuevo vendedor</h2>
-
     <form method="POST">
-        <label for="nombre">Nombre:</label><br>
-        <input type="text" name="nombre" id="nombre" required><br><br>
+        <input type="hidden" name="_action" value="agregar">
+        <label>Nombre:</label><br>
+        <input type="text" name="nombre" required><br><br>
 
-        <label for="apellido">Apellido:</label><br>
-        <input type="text" name="apellido" id="apellido" required><br><br>
+        <label>Apellido:</label><br>
+        <input type="text" name="apellido" required><br><br>
 
-        <label for="contrasena">Contraseña:</label><br>
-        <input type="password" name="contrasena" id="contrasena" required><br><br>
+        <label>Contraseña:</label><br>
+        <input type="password" name="contrasena" required><br><br>
 
-        <label for="direccion">Dirección:</label><br>
-        <input type="text" name="direccion" id="direccion" required><br><br>
+        <label>Dirección:</label><br>
+        <input type="text" name="direccion" required><br><br>
 
-        <label for="telefono">Teléfono:</label><br>
-        <input type="text" name="telefono" id="telefono" required><br><br>
+        <label>Teléfono:</label><br>
+        <input type="text" name="telefono" required><br><br>
 
-        <label for="correo_electronico">Correo electrónico:</label><br>
-        <input type="email" name="correo_electronico" id="correo_electronico" required><br><br>
+        <label>Correo electrónico:</label><br>
+        <input type="email" name="correo_electronico" required><br><br>
 
         <input type="submit" value="Agregar Vendedor">
     </form>
-    
+
+    <h2>Actualizar vendedor</h2>
+    <form method="POST">
+        <input type="hidden" name="_action" value="actualizar">
+        <label>ID:</label><br>
+        <input type="number" name="id" required><br><br>
+
+        <label>Nombre:</label><br>
+        <input type="text" name="nombre" required><br><br>
+
+        <label>Apellido:</label><br>
+        <input type="text" name="apellido" required><br><br>
+
+        <label>Contraseña:</label><br>
+        <input type="password" name="contrasena" required><br><br>
+
+        <label>Dirección:</label><br>
+        <input type="text" name="direccion" required><br><br>
+
+        <label>Teléfono:</label><br>
+        <input type="text" name="telefono" required><br><br>
+
+        <label>Correo electrónico:</label><br>
+        <input type="email" name="correo_electronico" required><br><br>
+
+        <input type="submit" value="Actualizar Vendedor">
+    </form>
+
+    <h2>Eliminar vendedor</h2>
+    <form method="POST">
+        <input type="hidden" name="_action" value="eliminar">
+        <label>ID:</label><br>
+        <input type="number" name="id" required><br><br>
+
+        <input type="submit" value="Eliminar Vendedor">
+    </form>
 </body>
-</html
+</html>
