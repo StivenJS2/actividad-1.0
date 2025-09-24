@@ -73,6 +73,6 @@ class VendedorController {
 
         $vendedores = $this->vendedorService->obtenerVendedores();
 
-        require __DIR__ . "/../Vista/Vendedor.php";
+        require __DIR__ . "/../Vista/CRUDvendedor/Vendedor.php";
     }
 }
