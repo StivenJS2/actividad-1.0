@@ -1,12 +1,9 @@
 <?php
 class ClienteService {
-    private $urlCliente;
+    private $urlCliente= "http://localhost:8080/cliente";
 
 
-public function __construct() {
-    
-        $this->urlCliente = "http://localhost:8080/cliente";
-    }
+
 
 
 public function obtenerClientes() {
