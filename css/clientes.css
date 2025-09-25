@@ -108,6 +108,21 @@ height: 100vh;
 }
 
 .sidebar .btn.active {
-    border: 2px solid #fff;
-    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    border: 3px solid transparent; 
+    animation: rainbowBorder 1s linear infinite;
 }
+
+@keyframes rainbowBorder {
+    0%   { box-shadow: 0 0 30px red; border-color: red; }
+    16%  { box-shadow: 0 0 30px orange; border-color: orange; }
+    33%  { box-shadow: 0 0 30px yellow; border-color: yellow; }
+    50%  { box-shadow: 0 0 30px green; border-color: green; }
+    66%  { box-shadow: 0 0 30px blue; border-color: blue; }
+    83%  { box-shadow: 0 0 30px indigo; border-color: indigo; }
+    100% { box-shadow: 0 0 30px violet; border-color: violet; }
+}
+
+
+
+
+

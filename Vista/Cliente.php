@@ -14,14 +14,35 @@
     <h4 class="text-center mb-4">Menú</h4>
 
     <div class="d-grid gap-3 flex-grow-1">
-        <button class="btn btn-primary" onclick="mostrarSeccion('ver')">📋 Ver Clientes</button>
-        <button class="btn btn-success" onclick="mostrarSeccion('crear')">➕ Agregar Cliente</button>
-        <button class="btn btn-warning text-white" onclick="mostrarSeccion('actualizar')">✏️ Actualizar Cliente</button>
-        <button class="btn btn-danger" onclick="mostrarSeccion('eliminar')">🗑️ Eliminar Cliente</button>
+      <button class="btn btn-primary text-white" onclick="mostrarSeccion('ver')">
+            <img src="img/ver-usuario.png" alt="ver" style="width:27px; height:27px; margin-right:5px;">
+                Ver Clientes
+    </button>
 
+  <button class="btn btn-success text-white" onclick="mostrarSeccion('crear')">
+            <img src="img/agregar-usuario.png" alt="crear" style="width:20px; height:20px; margin-right:5px;">
+                Agregar Cliente
+    </button>
+
+
+    <button class="btn btn-warning text-black " onclick="mostrarSeccion('actualizar')">
+            <img src="img/icono_actualizar.png" alt="Actualizar" style="width:25px; height:25px; margin-right:4px;">
+                   Actualizar Cliente 
+    </button>
+
+
+
+    <button class="btn btn-danger text-black " onclick="mostrarSeccion('eliminar')">
+            <img src="img/borrar.gif" alt="eliminar" style="width:25px; height:25px; margin-right:4px;">
+                   Eliminar Cliente 
+    </button>
+
+        
 
         <div class="mt-auto">
-        <a href="index.php" class="btn btn-secondary w-100">⬅️ Volver al Menú</a>
+        <a href="index.php" class="btn btn-secondary w-100"> 
+        <img src="img/casa.png" alt="Volver" style="width:32px; height:32px; margin-bottom:6px;">
+        Volver al Menú</a>
             </div>
     </div>
 </div>
