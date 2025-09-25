@@ -1,85 +1,185 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Clientes</title>
+    <title>Gestión de Clientes</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/clientes.css"> 
+    <script src="js/clientes.js"></script>
 </head>
 <body>
-    <h1>Lista de Clientes</h1>
 
-    <p style="color:blue;"><?= $mensaje ?></p>
+<div class="sidebar d-flex flex-column bg-dark text-white p-3">
+    <h4 class="text-center mb-4">Menú</h4>
 
-    <?php if (is_array($clientes)): ?>
-        <ul>
-    <?php foreach ($clientes as $cliente): ?>
-        <li>
-            <?= $cliente["id_cliente"] . " - " . $cliente["nombre"] . " - " . $cliente["correo_electronico"] ?>
-        </li>
-    <?php endforeach; ?>
-</ul>
-    <?php else: ?>
-        <p style="color:red;">No se encontraron clientes.</p>
+    <div class="d-grid gap-3 flex-grow-1">
+        <button class="btn btn-primary" onclick="mostrarSeccion('ver')">📋 Ver Clientes</button>
+        <button class="btn btn-success" onclick="mostrarSeccion('crear')">➕ Agregar Cliente</button>
+        <button class="btn btn-warning text-white" onclick="mostrarSeccion('actualizar')">✏️ Actualizar Cliente</button>
+        <button class="btn btn-danger" onclick="mostrarSeccion('eliminar')">🗑️ Eliminar Cliente</button>
+
+
+        <div class="mt-auto">
+        <a href="index.php" class="btn btn-secondary w-100">⬅️ Volver al Menú</a>
+            </div>
+    </div>
+</div>
+
+
+    
+<div class="contenido flex-grow-1 p-4">
+        <?php if (!empty($mensaje)): ?>
+            <div class="alert alert-info text-center"><?= $mensaje ?></div>
+        <?php endif; ?>
+
+        <div id="seccion-ver" class="seccion">
+            <h2>Lista de Clientes</h2>
+            <?php if (is_array($clientes)): ?>
+                <table class="table table-striped table-bordered mt-3">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($clientes as $cliente): ?>
+                            <tr>
+                                <td><?= $cliente["id_cliente"] ?></td>
+                                <td><?= $cliente["nombre"] ?></td>
+                                <td><?= $cliente["apellido"] ?></td>
+                                <td><?= $cliente["correo_electronico"] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <p class="text-danger">No se encontraron clientes.</p>
     <?php endif; ?>
+</div>
 
-    <h2>Agregar nuevo cliente</h2>
-    <form method="POST">
-        <input type="hidden" name="_action" value="agregar">
-        <label>Nombre:</label><br>
-        <input type="text" name="nombre" required><br><br>
 
-        <label>Apellido:</label><br>
-        <input type="text" name="apellido" required><br><br>
+      
+<div id="seccion-crear" class="seccion d-none">
+    <div class="card">
+         <div class="card-header bg-success text-white">Agregar Cliente</div>
+            <div class="card-body">
+                 <form method="POST">
+                        <input type="hidden" name="_action" value="agregar">
 
-        <label>Contraseña:</label><br>
-        <input type="password" name="contrasena" required><br><br>
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" name="nombre" class="form-control" required>
+                        </div>
 
-        <label>Dirección:</label><br>
-        <input type="text" name="direccion" required><br><br>
+                        <div class="mb-3">
+                            <label class="form-label">Apellido</label>
+                            <input type="text" name="apellido" class="form-control" required>
+                        </div>
 
-        <label>Teléfono:</label><br>
-        <input type="text" name="telefono" required><br><br>
+                        <div class="mb-3">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" name="contrasena" class="form-control" required>
+                        </div>
 
-        <label>Correo electrónico:</label><br>
-        <input type="email" name="correo_electronico" required><br><br>
+                        <div class="mb-3">
+                            <label class="form-label">Dirección</label>
+                            <input type="text" name="direccion" class="form-control" required>
+                        </div>
 
-        <input type="submit" value="Agregar Cliente">
-    </form>
+                        <div class="mb-3">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" name="telefono" class="form-control" required>
+                        </div>
 
-    <h2>Actualizar cliente</h2>
-    <form method="POST">
-        <input type="hidden" name="_action" value="actualizar">
-        <label>ID:</label><br>
-        <input type="number" name="id" required><br><br>
+                        <div class="mb-3">
+                            <label class="form-label">Correo electrónico</label>
+                            <input type="email" name="correo_electronico" class="form-control" required>
+                    </div>
 
-        <label>Nombre:</label><br>
-        <input type="text" name="nombre" required><br><br>
+                <button type="submit" class="btn btn-success">Agregar Cliente</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-        <label>Apellido:</label><br>
-        <input type="text" name="apellido" required><br><br>
 
-        <label>Contraseña:</label><br>
-        <input type="password" name="contrasena" required><br><br>
+<div id="seccion-actualizar" class="seccion d-none">
+    <div class="card">
+            <div class="card-header bg-warning text-white">Actualizar Cliente</div>
+                <div class="card-body">
+                    <form method="POST">
+                        <input type="hidden" name="_action" value="actualizar">
 
-        <label>Dirección:</label><br>
-        <input type="text" name="direccion" required><br><br>
+                        <div class="mb-3">
+                            <label class="form-label">ID</label>
+                            <input type="number" name="id" class="form-control" required>
+                        </div>
 
-        <label>Teléfono:</label><br>
-        <input type="text" name="telefono" required><br><br>
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" name="nombre" class="form-control" required>
+                        </div>
 
-        <label>Correo electrónico:</label><br>
-        <input type="email" name="correo_electronico" required><br><br>
+                        <div class="mb-3">
+                            <label class="form-label">Apellido</label>
+                            <input type="text" name="apellido" class="form-control" required>
+                        </div>
 
-        <input type="submit" value="Actualizar Cliente">
-    </form>
+                        <div class="mb-3">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" name="contrasena" class="form-control" required>
+                        </div>
 
-    <h2>Eliminar cliente</h2>
-    <form method="POST">
-        <input type="hidden" name="_action" value="eliminar">
-        <label>ID:</label><br>
-        <input type="number" name="id" required><br><br>
+                        <div class="mb-3">
+                            <label class="form-label">Dirección</label>
+                            <input type="text" name="direccion" class="form-control" required>
+                        </div>
 
-        <input type="submit" value="Eliminar Cliente">
-    </form>
+                        <div class="mb-3">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" name="telefono" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Correo electrónico</label>
+                            <input type="email" name="correo_electronico" class="form-control" required>
+                        </div>
+
+                 <button type="submit" class="btn btn-warning text-white">Actualizar Cliente</button>
+             </form>
+         </div>
+    </div>
+</div>
+
+
+<div id="seccion-eliminar" class="seccion d-none">
+    <div class="card">
+            <div class="card-header bg-danger text-white">Eliminar Cliente</div>
+                <div class="card-body">
+                    <form method="POST">
+                        <input type="hidden" name="_action" value="eliminar">
+
+                        <div class="mb-3">
+                            <label class="form-label">ID</label>
+                            <input type="number" name="id" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger">Eliminar Cliente</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
+
