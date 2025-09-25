@@ -39,8 +39,8 @@
 
                 <div class="card shadow-lg">
                     <div class="card-body bg-light text-dark">
+
                         <form action="../../Controlador/VendedorController.php" method="POST">
-                            
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre del Vendedor</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" required>
@@ -51,9 +51,15 @@
                                 <input type="text" class="form-control" id="apellido" name="apellido" required>
                             </div>
 
+
                             <div class="mb-3">
-                                <label for="correo" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="correo" name="correo" required>
+                                <label for="contrasena" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="direccion" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="direccion" name="direccion" required>
                             </div>
 
                             <div class="mb-3">
@@ -61,10 +67,18 @@
                                 <input type="text" class="form-control" id="telefono" name="telefono" required>
                             </div>
 
-                            <button type="submit" name="accion" value="crear" class="btn btn-success bg-primary w-100">
+                            <div class="mb-3">
+                                <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" required>
+                            </div>
+
+
+
+                            <button type="submit" name="_action" value="agregar" class="btn btn-success bg-primary w-100">
                                 Crear Vendedor
                             </button>
                         </form>
+
                     </div>
                 </div>  
             </div>

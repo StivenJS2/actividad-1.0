@@ -18,14 +18,13 @@ class VendedorController {
                 case "agregar":
                     $nombre = trim($_POST['nombre'] ?? '');
                     $apellido = trim($_POST['apellido'] ?? '');
-                    $contrasena = trim($_POST['contrasena'] ?? '');
-                    $direccion = trim($_POST['direccion'] ?? '');
-                    $telefono = trim($_POST['telefono'] ?? '');
                     $correo_electronico = trim($_POST['correo_electronico'] ?? '');
+                    $telefono = trim($_POST['telefono'] ?? '');
+                    $contrasena = trim($_POST['contrasena'] ?? '');
 
-                    if ($nombre && $apellido && $contrasena && $direccion && $telefono && $correo_electronico) {
+                    if ($nombre && $apellido && $correo_electronico && $telefono && $contrasena) {
                         $resultado = $this->vendedorService->agregarVendedor(
-                            $nombre, $apellido, $contrasena, $direccion, $telefono, $correo_electronico
+                            $nombre, $apellido, $correo_electronico, $telefono, $contrasena 
                         );
                         $mensaje = $resultado["success"]
                             ? "<p style='color:green;'>Vendedor agregado correctamente</p>"
@@ -36,17 +35,16 @@ class VendedorController {
                     break;
 
                 case "actualizar":
-                    $id = $_POST["id"] ?? null;
+                    $id_vendedor = $_POST["id"] ?? null;
                     $nombre = trim($_POST['nombre'] ?? '');
                     $apellido = trim($_POST['apellido'] ?? '');
-                    $contrasena = trim($_POST['contrasena'] ?? '');
-                    $direccion = trim($_POST['direccion'] ?? '');
-                    $telefono = trim($_POST['telefono'] ?? '');
                     $correo_electronico = trim($_POST['correo_electronico'] ?? '');
+                    $telefono = trim($_POST['telefono'] ?? '');
+                    $contrasena = trim($_POST['contrasena'] ?? '');
 
-                    if ($id && $nombre && $apellido && $contrasena && $direccion && $telefono && $correo_electronico) {
+                    if ($id_vendedor && $nombre && $apellido && $correo_electronico && $telefono && $contrasena) {
                         $resultado = $this->vendedorService->actualizarVendedor(
-                            $id, $nombre, $apellido, $contrasena, $direccion, $telefono, $correo_electronico
+                            $id_vendedor, $nombre, $apellido, $correo_electronico, $telefono, $contrasena
                         );
                         $mensaje = $resultado["success"]
                             ? "<p style='color:green;'>Vendedor actualizado correctamente</p>"
@@ -74,5 +72,6 @@ class VendedorController {
         $vendedores = $this->vendedorService->obtenerVendedores();
 
         require __DIR__ . "/../Vista/CRUDvendedor/Vendedor.php";
+
     }
 }

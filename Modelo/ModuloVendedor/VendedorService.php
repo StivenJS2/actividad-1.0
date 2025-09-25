@@ -9,14 +9,13 @@ class VendedorService {
         return json_decode($respuesta, true);
     }
 
-    public function agregarVendedor($nombre, $apellido, $contrasena, $direccion, $telefono, $correo_electronico) {
+    public function agregarVendedor($nombre, $apellido, $correo_electronico, $telefono, $contrasena) {
         $datos = [
             "nombre" => $nombre,
             "apellido" => $apellido,
-            "contrasena" => $contrasena,
-            "direccion" => $direccion,
+            "correo_electronico" => $correo_electronico,
             "telefono" => $telefono,
-            "correo_electronico" => $correo_electronico
+            "contrasena" => $contrasena
         ];
 
         $data_json = json_encode($datos);
@@ -45,18 +44,17 @@ class VendedorService {
         }
     }
 
-    public function actualizarVendedor($id, $nombre, $apellido, $contrasena, $direccion, $telefono, $correo_electronico) {
+    public function actualizarVendedor($id_vendedor, $nombre, $apellido, $correo_electronico, $telefono, $contrasena) {
         $datos = [
             "nombre" => $nombre,
             "apellido" => $apellido,
             "contrasena" => $contrasena,
-            "direccion" => $direccion,
             "telefono" => $telefono,
             "correo_electronico" => $correo_electronico
         ];
 
         $data_json = json_encode($datos);
-        $url = $this->urlVendedor . "/" . $id; 
+        $url = $this->urlVendedor . "/" . $id_vendedor; 
         $proceso = curl_init($url);
 
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "PUT");
@@ -83,8 +81,8 @@ class VendedorService {
         }
     }
 
-    public function eliminarVendedor($id) {
-        $url = $this->urlVendedor . "/" . $id;
+    public function eliminarVendedor($id_vendedor) {
+        $url = $this->urlVendedor . "/" . $id_vendedor;
         $proceso = curl_init($url);
 
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "DELETE");

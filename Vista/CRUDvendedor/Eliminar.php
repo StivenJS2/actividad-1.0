@@ -47,7 +47,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-danger">Eliminar</button>
-                <a href="/CONSUMO/Vista/CRUDvendedor/Vendedor.php" class="btn btn-secondary">Volver</a>
+                <a href="/consumo/?opcion=vendedor" class="btn btn-secondary">Volver</a>
             </form>
         </div>
     </div>
