@@ -19,6 +19,15 @@ elseif ($opcion === 'pedido') {
     $controller->manejarPeticion();
 } 
 
+elseif ($opcion === 'producto') {
+    require_once __DIR__ . '/Controlador/ProductoController.php';
+    $controller = new ProductoController();
+    $controller->manejarPeticion();
+} 
+
+
+
+
 else {
 
     ?>
@@ -43,7 +52,7 @@ else {
                 <div class="row g-4 justify-content-center my-5">
 
 
-                    <!-- Cliente -->
+                    
                     <div class="col-md-4">
 
                     <div class="card shadow-sm h-100 ">
@@ -61,7 +70,7 @@ else {
                     </div>
 
                         
-                    <!-- Vendedor -->
+                    
                     <div class="col-md-4">
                         <div class="card shadow-sm h-100">
                             <div class="card-body">
@@ -75,7 +84,7 @@ else {
                     </div>
 
 
-                    <!-- Pedido -->
+                    
                     <div class="col-md-4">
 
                         <div class="card shadow-sm h-100">
@@ -91,6 +100,18 @@ else {
                         </div>
 
                     </div>
+
+
+
+                <div class="col-md-3">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Producto</h5>
+                            <p class="card-text">Gestiona los productos de la tienda.</p>
+                            <a href="?opcion=producto" class="btn btn-danger">Ir a Producto</a>
+                        </div>
+                    </div>
+                </div>
 
                 </div>
 
