@@ -47,7 +47,6 @@ class ProductoService {
         }
     }
 
-    // Actualizar producto
     public function actualizarProducto($id, $nombre, $descripcion, $cantidad, $id_vendedor, $estado) {
         $datos = [
             "nombre" => $nombre,
@@ -85,7 +84,7 @@ class ProductoService {
         }
     }
 
-    // Eliminar producto
+    
     public function eliminarProducto($id) {
         $url = $this->urlProducto . "/" . $id;
         $proceso = curl_init($url);
