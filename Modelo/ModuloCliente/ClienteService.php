@@ -2,10 +2,6 @@
 class ClienteService {
     private $urlCliente= "http://localhost:8080/cliente";
 
-
-
-
-
 public function obtenerClientes() {
     $respuesta = file_get_contents($this->urlCliente);
     if ($respuesta === FALSE) return [];
@@ -112,10 +108,6 @@ public function eliminarCliente($id) {
         return ["success" => false, "error" => "HTTP $http_code"];
     }
 }
-
-
-
-
 
 }
 ?>

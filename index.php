@@ -19,6 +19,18 @@ elseif ($opcion === 'pedido') {
     $controller->manejarPeticion();
 } 
 
+elseif ($opcion === 'carrito') {
+    require_once __DIR__ . '/Controlador/CarritoController.php';
+    $controller = new CarritoController();
+    $controller->manejarPeticion();
+}
+
+elseif ($opcion === 'detalle_producto') {
+    require_once __DIR__ . '/Controlador/Detalle_productoController.php';
+    $controller = new Detalle_ProductoController();
+    $controller->manejarPeticion();
+}
+
 else {
 
     ?>
@@ -91,6 +103,41 @@ else {
                         </div>
 
                     </div>
+
+                    <!-- Carrito -->
+                    <div class="col-md-4">
+
+                        <div class="card shadow-sm h-100">
+
+                            <div class="card-body">
+
+                                <h5 class="card-title">Carrito</h5>
+                                <p class="card-text">Administra los carritos de compra.</p>
+                                <a href="?opcion=carrito" class="btn btn-info">Ir a Carrito</a>
+
+                            </div>      
+
+                        </div>
+
+                    </div>
+
+                    <!-- Detalle_producto -->
+                     <div class="col-md-4">
+
+                        <div class="card shadow-sm h-100">
+
+                            <div class="card-body">
+
+                                <h5 class="card-title">Detalle_producto</h5>
+                                <p class="card-text">Administra los Detalles de productos.</p>
+                                <a href="?opcion=detalle_producto" class="btn btn-info">Ir a Detalle_producto</a>
+
+                            </div>      
+
+                        </div>
+
+                    </div>
+
 
                 </div>
 
