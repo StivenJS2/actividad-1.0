@@ -142,7 +142,7 @@ else {
 
                                 <h5 class="card-title">Detalle_producto</h5>
                                 <p class="card-text">Administra los Detalles de productos.</p>
-                                <a href="?opcion=detalle_producto" class="btn btn-info">Ir a Detalle_producto</a>
+                                <a href="?opcion=detalle_producto" class="btn btn-primary">Ir a Detalle_producto</a>
 
                             </div>      
 
