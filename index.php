@@ -19,6 +19,12 @@ elseif ($opcion === 'pedido') {
     $controller->manejarPeticion();
 } 
 
+elseif ($opcion === 'categoria') {
+    require_once __DIR__ . '/Controlador/CategoriaController.php';
+    $controller = new CategoriaController();
+    $controller->manejarPeticion();
+} 
+
 else {
 
     ?>
@@ -92,9 +98,33 @@ else {
 
                     </div>
 
+                    
+
+                    <!-- Categoria -->
+                    <div class="col-md-4">
+
+                        <div class="card shadow-sm h-100">
+                              
+                            <div class="card-body">
+                                
+                                <h5 class="card-title">Categoría</h5>
+                                <p class="card-text">Gestiona las categorías de productos.</p>
+                                <a href="?opcion=categoria" class="btn btn-danger">Ir a Categoría</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    
+
                 </div>
 
             </div>
+
+
+
 
             </body>
             </html>
